@@ -52,15 +52,15 @@ client.commandManager.addArgumentType(
 
 client.listenerManager.register(new ReadyListener(client));
 
-client.commandManager.register(new LeaderboardCommand());
-client.commandManager.register(new PunishmentsCommand());
-client.commandManager.register(new PlayerCommand());
-client.commandManager.register(new PingCommand());
-client.commandManager.register(new ServerCommand());
+// client.commandManager.register(new LeaderboardCommand());
+// client.commandManager.register(new PunishmentsCommand());
+// client.commandManager.register(new PlayerCommand());
+// client.commandManager.register(new PingCommand());
+// client.commandManager.register(new ServerCommand());
 client.commandManager.register(new StaffCommand());
 client.commandManager.register(new PingMeCommand());
 client.commandManager.register(new EvalCommand());
-client.commandManager.register(new HelpCommand());
+// client.commandManager.register(new HelpCommand());
 
 client.login(process.env.DISCORD_TOKEN);
 
