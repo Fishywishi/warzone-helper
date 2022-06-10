@@ -1,10 +1,10 @@
 {
-	"name": "warzone-stats",
+	"name": "warzone-helper",
 	"version": "1.0.0",
 	"description": "View Warzone info in Discord",
 	"main": "src/index.ts",
 	"bin": "dist/index.js",
-	"repository": "git@github.com:jellz/warzone-stats",
+	"repository": "git@github.com:jellz/warzone-helper",
 	"author": "Daniel <danielgulic@gmail.com>",
 	"license": "MIT",
 	"private": true,
