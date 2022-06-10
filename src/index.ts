@@ -6,14 +6,8 @@ import { Connection, createConnection } from 'typeorm';
 
 import { Context, DABFClient } from 'dabf';
 import { getPlayer, Player } from './api';
-import { LeaderboardCommand } from './command/leaderboard';
-import { PlayerCommand } from './command/player';
-import { PunishmentsCommand } from './command/punishments';
-import { PingCommand } from './command/ping';
-import { ServerCommand } from './command/server';
 import { StaffCommand } from './command/staff';
 import { EvalCommand } from './command/eval';
-import { HelpCommand } from './command/help';
 import { PingMeCommand } from './command/pingMe';
 import { ReadyListener } from './listener/ready';
 import { UserPreferences } from './entity/userPreferences';
