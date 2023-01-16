@@ -18,6 +18,16 @@ export class MentionCommand extends Command {
 				':warning: This command can only be used in a server'
 			);
 
+		// Certain roles required to use command
+		const userRoles = $.message.member?.roles.cache;
+		if (
+			!userRoles?.find(r => r.name.toLowerCase() === 'linked') ||
+			!userRoles.find(r => r.id === mentionRoleId)
+		)
+			return $.message.channel.send(
+				':warning: You need to hold the mention role yourself and be linked to use this command. To link your account, use `/discord link` in-game.'
+			);
+
 		// Global twenty minute cooldown
 		if (lastUsed && Date.now() - lastUsed.getTime() < 1_200_000)
 			return $.message.channel.send(
