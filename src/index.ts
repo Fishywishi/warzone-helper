@@ -11,6 +11,7 @@ import { EvalCommand } from './command/eval';
 import { PingMeCommand } from './command/pingMe';
 import { ReadyListener } from './listener/ready';
 import { UserPreferences } from './entity/userPreferences';
+import { MentionCommand } from './command/mention';
 
 if (!process.env.DISCORD_TOKEN) throw 'Missing DISCORD_TOKEN env variable';
 if (!process.env.LOADING_EMOJI) throw 'Missing LOADING_EMOJI env variable';
@@ -52,6 +53,7 @@ client.listenerManager.register(new ReadyListener(client));
 // client.commandManager.register(new PingCommand());
 // client.commandManager.register(new ServerCommand());
 client.commandManager.register(new StaffCommand());
+client.commandManager.register(new MentionCommand());
 client.commandManager.register(new PingMeCommand());
 client.commandManager.register(new EvalCommand());
 // client.commandManager.register(new HelpCommand());
