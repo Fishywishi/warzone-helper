@@ -1,5 +1,5 @@
 import { Command, CommandRun, Context } from 'dabf';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { connection } from '..';
 import { UserPreferences } from '../entity/userPreferences';
 
@@ -36,18 +36,20 @@ export class PingMeCommand extends Command {
 		else if (!prefs) pingMeStatuses = ['online'];
 		else pingMeStatuses = [];
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle('Ping preferences')
-			.setDescription([
-				`You will be pinged when players use the \`${$.prefix}staff\` command if your status is in your Ping Me list. Try to keep your Ping Me list to statuses that you use when you're usually available to help players.`,
-				'',
-				'**Commands**',
-				`• **\`${$.prefix}pingme show\`**`,
-				`• **\`${$.prefix}pingme add <status>\`**`,
-				`• **\`${$.prefix}pingme remove <status>\`**`,
-				'',
-				'`<status>` can be `Online`, `DND`, `Idle`, or `Invisible`',
-			])
+			.setDescription(
+				[
+					`You will be pinged when players use the \`${$.prefix}staff\` command if your status is in your Ping Me list. Try to keep your Ping Me list to statuses that you use when you're usually available to help players.`,
+					'',
+					'**Commands**',
+					`• **\`${$.prefix}pingme show\`**`,
+					`• **\`${$.prefix}pingme add <status>\`**`,
+					`• **\`${$.prefix}pingme remove <status>\`**`,
+					'',
+					'`<status>` can be `Online`, `DND`, `Idle`, or `Invisible`',
+				].join('\n')
+			)
 			.setColor($.message.member?.roles.highest.color);
 
 		switch (action) {
@@ -57,13 +59,14 @@ export class PingMeCommand extends Command {
 					pingMeStatuses.includes(s.toLowerCase())
 				);
 
-				embed.addField(
-					"Ping me when I'm",
-					statuses.length > 0
-						? statuses.join('\n')
-						: '*(No statuses; never ping)*'
-				);
-				return $.message.channel.send(embed);
+				embed.addFields({
+					name: "Ping me when I'm",
+					value:
+						statuses.length > 0
+							? statuses.join('\n')
+							: '*(No statuses; never ping)*',
+				});
+				return $.message.channel.send({ embeds: [embed] });
 
 			case '+':
 			case 'add':

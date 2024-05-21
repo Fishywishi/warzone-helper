@@ -1,5 +1,5 @@
 import { Command, CommandRun, Context } from 'dabf';
-import { GuildMember, User } from 'discord.js';
+import { GuildMember } from 'discord.js';
 import { connection } from '..';
 import { UserPreferences } from '../entity/userPreferences';
 
@@ -7,13 +7,13 @@ let lastUsed: Date;
 const staffRoles = process.env.STAFF_ROLES?.split(',') || [];
 const exemptUsers = process.env.STAFF_PING_EXEMPT_USERS?.split(',') || [];
 
-const isPingable = async (user: User) => {
+const isPingable = async (member: GuildMember) => {
 	const userPreferences = connection.getRepository(UserPreferences);
 
-	const pingList = (await userPreferences.findOne(user.id))
+	const pingList = (await userPreferences.findOne(member.id))
 		?.staffPingStatusesOverride || ['online'];
 
-	return pingList.includes(user.presence.status);
+	return member.presence ? pingList.includes(member.presence.status) : false;
 };
 
 export class StaffCommand extends Command {
@@ -37,15 +37,15 @@ export class StaffCommand extends Command {
 			withPresences: true,
 		});
 		if (!members)
-			return $.message.channel.send(':warning: Could not fetch members');
+			return $.message.channel.send(':warning: Could not fetch server members');
 
 		const staff: GuildMember[] = [];
 
-		for (const member of members.array()) {
+		for (const member of members.values()) {
 			if (!member.roles.cache.some(role => staffRoles.includes(role.id)))
 				continue; // Skip if member isn't staff
 			if (exemptUsers.includes(member.id)) continue; // Skip if member is barred from being pinged
-			if (!(await isPingable(member.user))) continue; // Skip if member's status is not on their Ping Me list
+			if (!(await isPingable(member))) continue; // Skip if member's status is not on their Ping Me list
 
 			staff.push(member);
 		}

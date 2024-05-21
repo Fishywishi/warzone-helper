@@ -14,6 +14,7 @@ services:
       - STAFF_PING_EXEMPT_USERS
       - API_BASE
       - EVALERS
+      - PLAY_MENTION_ROLE_ID
 
 volumes:
   wzstats_sql_data:

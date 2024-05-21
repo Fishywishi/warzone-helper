@@ -12,6 +12,7 @@ import { PingMeCommand } from './command/pingMe';
 import { ReadyListener } from './listener/ready';
 import { UserPreferences } from './entity/userPreferences';
 import { MentionCommand } from './command/mention';
+import { GatewayIntentBits } from 'discord.js';
 
 if (!process.env.DISCORD_TOKEN) throw 'Missing DISCORD_TOKEN env variable';
 if (!process.env.LOADING_EMOJI) throw 'Missing LOADING_EMOJI env variable';
@@ -27,7 +28,18 @@ export let connection: Connection;
 	});
 })();
 
-const client = new DABFClient({}, { disableMentions: 'everyone' });
+const client = new DABFClient(
+	{},
+	{
+		intents: [
+			GatewayIntentBits.Guilds,
+			GatewayIntentBits.GuildMembers,
+			GatewayIntentBits.GuildMessages,
+			GatewayIntentBits.MessageContent,
+			GatewayIntentBits.GuildPresences,
+		],
+	}
+);
 
 client.commandManager.setPrefix('!');
 

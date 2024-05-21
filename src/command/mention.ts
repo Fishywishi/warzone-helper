@@ -27,7 +27,10 @@ export class MentionCommand extends Command {
 		);
 		if (
 			!userRoles?.some(r => r.name.toLowerCase() === 'linked') ||
-			!(userRoles.some(r => r.id === mentionRoleId) || userRoles.some(r => r.name.toLowerCase() === 'mention'))
+			!(
+				userRoles.some(r => r.id === mentionRoleId) ||
+				userRoles.some(r => r.name.toLowerCase() === 'mention')
+			)
 		)
 			return $.message.channel.send(
 				':warning: You need to hold the mention role yourself and be linked to use this command. To link your account, use `/discord link` in-game.'

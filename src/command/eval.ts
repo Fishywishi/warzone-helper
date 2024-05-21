@@ -13,8 +13,8 @@ export class EvalCommand extends Command {
 		try {
 			let evaled = inspect(eval(code));
 			console.log(evaled);
-			$.message.channel.send(clean(evaled), { code: 'xl' });
-		} catch (err) {
+			$.message.channel.send(`\`\`\`xl\n${clean(evaled)}\n\`\`\``);
+		} catch (err: any) {
 			console.log(err);
 			$.message.channel.send(
 				`\`ERROR\` \`\`\`xl\n${clean(err.toString())}\n\`\`\``
