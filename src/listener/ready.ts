@@ -1,8 +1,9 @@
 import { DABFClient, Listener } from 'dabf';
+import { Events } from 'discord.js';
 
 export class ReadyListener extends Listener {
 	id = 'ready';
-	event = 'ready';
+	event = Events.ClientReady;
 
 	constructor(public client: DABFClient) {
 		super();
